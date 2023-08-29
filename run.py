@@ -35,7 +35,7 @@ def main(hparams):
     if hparams.is_optimize is not None:
         num = int(hparams.is_optimize[0])
         ckpt_cb = ModelCheckpoint(
-            dirpath=f"/experiments/zubair/ckpts/{hparams.exp_name}",
+            dirpath=f"/content/ckpts/{hparams.exp_name}",
             monitor="val/psnr",
             filename=f"optimize_{num}_{{epoch:d}}",
             save_top_k=-1,
@@ -47,7 +47,7 @@ def main(hparams):
 
     elif hparams.finetune_lpips:
         ckpt_cb = ModelCheckpoint(
-            dirpath=f"/experiments/zubair/ckpts/{hparams.exp_name}",
+            dirpath=f"/content/ckpts/{hparams.exp_name}",
             monitor="val/psnr",
             filename="finetune_lpips_{epoch:d}",
             save_top_k=5,
@@ -58,7 +58,7 @@ def main(hparams):
         )
     else:
         ckpt_cb = ModelCheckpoint(
-            dirpath=f"/experiments/zubair/ckpts/{hparams.exp_name}",
+            dirpath=f"/content/ckpts/{hparams.exp_name}",
             monitor="val/psnr",
             filename="{epoch:d}",
             save_top_k=5,
@@ -75,10 +75,10 @@ def main(hparams):
     if hparams.finetune_lpips or hparams.is_optimize:
         if hparams.ckpt_path is not None:
             ckpt_path = (
-                f"/experiments/zubair/ckpts/{hparams.exp_name}/{hparams.ckpt_path}"
+                f"/content/ckpts/{hparams.exp_name}/{hparams.ckpt_path}"
             )
         else:
-            ckpt_path = f"/experiments/zubair/ckpts/{hparams.exp_name}/last.ckpt"
+            ckpt_path = f"/content/ckpts/{hparams.exp_name}/last.ckpt"
     else:
         ckpt_path = None
     if hparams.is_optimize:
@@ -154,10 +154,10 @@ def main(hparams):
     if hparams.run_eval:
         if hparams.ckpt_path is not None:
             ckpt_path = (
-                f"/experiments/zubair/ckpts/{hparams.exp_name}/{hparams.ckpt_path}"
+                f"/content/ckpts/{hparams.exp_name}/{hparams.ckpt_path}"
             )
         else:
-            ckpt_path = f"/experiments/zubair/ckpts/{hparams.exp_name}/last.ckpt"
+            ckpt_path = f"/content/ckpts/{hparams.exp_name}/last.ckpt"
         trainer.test(system, ckpt_path=ckpt_path)
         # self.val_dataset = dataset(split='val', **kwargs_test)
     else:
